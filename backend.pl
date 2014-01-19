@@ -8,7 +8,8 @@ my $passfile = "/home/nate/mathrel2-private/pg-pwd";
 {
     open(my $fh, "<", $passfile)
 	or die("$passfile: $!");
-    $password = chomp(<$fh>);
+    $password = <$fh>;
+    chomp($password);
     close($fh);
 }
 
