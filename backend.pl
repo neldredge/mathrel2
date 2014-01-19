@@ -1,6 +1,7 @@
 #! /usr/bin/perl -w
 use strict;
 use DBI;
+use Data::Dumper;
 
 my $password;
 
@@ -25,9 +26,20 @@ my $h = $db->prepare("SELECT advisor,advisee FROM advises")
 
 $h->execute() or die("execute");
 
-while (my @pair = $h->fetchrow_array()) {
-    print "Advisor $pair[0], advisee $pair[1]\n";
+my %advise;
+
+sub add_edge {
+    my ($graph, $from, $to) = @_;
+    push(@$graph->{$from}, $to);
 }
 
-$db-disconnect();
+while (my ($advisor, $advisee) = $h->fetchrow_array()) {
+    
+    push(@{$advise{$advisor}->advisees}, $advisee);
+    push(@{$advise{$advisee}->advisors}, $advisor);
+}
+
+print Dumper(%advise);
+
+$db->disconnect();
 
