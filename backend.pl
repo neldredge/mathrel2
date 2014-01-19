@@ -25,7 +25,7 @@ my $h = $db->prepare("SELECT advisor,advisee FROM advises")
 
 $h->execute() or die("execute");
 
-while (my @pair = @h->fetchrow_array()) {
+while (my @pair = $h->fetchrow_array()) {
     print "Advisor $pair[0], advisee $pair[1]\n";
 }
 
