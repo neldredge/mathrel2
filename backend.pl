@@ -19,3 +19,15 @@ my $dbuser = "mathrel";
 
 my $db = DBI->connect("dbi:Pg:dbname=$database;host=localhost", $dbuser, $password)
     or die("DBI->connect: $!");
+
+my $h = $db->prepare("SELECT advisor,advisee FROM advises")
+    or die("prepare");
+
+$h->execute() or die("execute");
+
+while (my @pair = @h->fetchrow_array()) {
+    print "Advisor $pair[0], advisee $pair[1]\n";
+}
+
+$db-disconnect();
+
