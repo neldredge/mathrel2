@@ -1,9 +1,13 @@
 #! /usr/bin/perl -w
 use strict;
+use DBI;
 
 my $password;
 
 my $passfile = "/home/nate/mathrel2-private/pg-pwd";
+my $database = "geneal";
+my $host = "localhost";
+my $dbuser = "mathrel";
 
 {
     open(my $fh, "<", $passfile)
@@ -13,4 +17,5 @@ my $passfile = "/home/nate/mathrel2-private/pg-pwd";
     close($fh);
 }
 
-print "$password\n";
+my $db = DBI->connect("dbi:Pg:dbname=$database", $dbuser, $password)
+    or die("DBI->connect: $!");
