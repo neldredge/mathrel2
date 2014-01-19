@@ -17,5 +17,5 @@ my $dbuser = "mathrel";
     close($fh);
 }
 
-my $db = DBI->connect("dbi:Pg:dbname=$database\@localhost", $dbuser, $password)
+my $db = DBI->connect("dbi:Pg:dbname=$database;host=localhost", $dbuser, $password)
     or die("DBI->connect: $!");
