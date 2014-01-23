@@ -2,6 +2,7 @@
 #define GRAPH_H
 
 #include <stdint.h>
+#include <sys/types.h>
 
 /* 
    Should have:
@@ -70,5 +71,10 @@ typedef const vertex_t *const_graph;
 #define G_CHILD(G,v,i)              G_EDGE((G), G_CHILD_LIST_START((G), (v)) + (i))
 
 #define GRAPH_NEEDED_STRUCTURE_SIZE(v,e) (GRAPH_HEADER_SIZE + ((v) * GRAPH_VERTEX_ENTRY_SIZE) + (2 * (e)))
+
+int check_sanity(const_graph G, off_t sz);
+
+const_graph map_graph(int fd);
+
 
 #endif /* GRAPH_H */
